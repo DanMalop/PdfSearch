@@ -1,0 +1,16 @@
+.form-control {
+    margin: 5px 3px 5px 3px;
+}
+
+.btn-appform {
+    margin-top: 10px;
+}
+
+.pdfapp-form {
+    width: 1100px;
+    margin: 10px auto 10px auto;
+}
+
+.formulary-app {
+    display: flex;
+}

@@ -1,0 +1,33 @@
+.content-pdfsearch {
+    justify-content: center;
+    text-align: center;
+    align-items: center
+}
+
+.form-control {
+    margin: 5px 3px 5px 3px;
+}
+
+.btn-appform {
+    margin-top: 10px;
+}
+
+.pdfapp-form {
+    width: 600px;
+    margin: 10px auto 10px auto;
+}
+
+.formulary-app {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulary-app-others {
+    display: flex;
+    flex-direction: column;
+}
+
+.ignore-spaces {
+    margin-left: 20px;
+    width: 180px;
+}

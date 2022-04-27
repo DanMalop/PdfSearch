@@ -1,0 +1,5 @@
+*files
+*bacteriaFiles
+*__pycache__
+*venv
+*node_modules

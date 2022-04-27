@@ -1,0 +1,16 @@
+import React, {Fragment} from "react";
+
+function About() {
+
+    return(
+        <div className="about-content">
+            <Fragment>
+                <h1>About</h1>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. \n Ad, alias earum dicta ab dolores velit quae quisquam assumenda quasi nulla vero optio veritatis culpa quos voluptatem, quam, nihil iusto distinctio suscipit! Laudantium rerum quis possimus maiores. Vel a nesciunt nemo! A, odio. Nobis accusamus rerum sit voluptates libero quasi tenetur delectus pariatur autem, voluptatibus tempore dolorum fugiat quibusdam asperiores ipsa ducimus obcaecati voluptatem debitis. Blanditiis quas maxime laborum in dolorum veritatis temporibus nam est iure, doloribus reiciendis nobis quo, recusandae illo, tempora harum voluptatum iusto illum similique. Mollitia, molestiae! Quis repellendus earum laboriosam rerum cumque saepe blanditiis sapiente dolore. Quisquam nihil et officiis saepe est placeat quibusdam dolor modi, alias perferendis natus corporis eum exercitationem illo dolorem itaque quidem corrupti distinctio recusandae fugit ab ad error. Soluta laboriosam minima quae illo quisquam officia velit beatae totam, ullam quasi perspiciatis quam autem? Eveniet facere blanditiis error corporis placeat. Earum impedit debitis eum mollitia velit eaque, fuga reprehenderit, rerum doloribus voluptatem similique neque cumque illo saepe eveniet officia, itaque repudiandae sed? Ab, aperiam earum quos fugiat aliquam itaque mollitia molestias qui dolor sint necessitatibus! Enim sunt, pariatur eveniet maxime ab excepturi saepe? Dolores, omnis. At labore nam et nobis. Porro, consequatur tenetur? Repudiandae ad inventore voluptatibus aperiam dolore dignissimos aspernatur laborum quibusdam perspiciatis eius, sequi error quas labore quam assumenda dolorem voluptatem corporis facere animi id iusto reiciendis minima! Odit, unde omnis eos ipsum corrupti quibusdam libero rem culpa commodi eaque quia. Quisquam veniam id, rerum repellendus culpa blanditiis nesciunt corrupti voluptas ipsum est autem debitis enim a, quae illo quas reiciendis impedit obcaecati eligendi! Placeat enim sed ex, officiis quo eligendi incidunt magni. Alias vel, incidunt commodi a eos hic sequi consequuntur cum reprehenderit consectetur et adipisci cumque obcaecati, minima itaque? Eius impedit, id eaque suscipit minus commodi maxime reprehenderit inventore?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia nulla vitae nostrum laborum. Et molestias veniam nostrum quisquam sit suscipit provident, quasi in natus expedita aliquid cum consequatur facilis? Tempore, aspernatur dicta sint voluptates pariatur tempora optio numquam dignissimos veritatis ratione consequatur quo recusandae harum ducimus facilis omnis voluptatum quidem ipsam accusamus iure maxime! Enim, omnis repellendus temporibus sit quis harum, quibusdam possimus, architecto et ipsum sint! Labore facere laudantium enim doloremque, nulla quibusdam id unde obcaecati. Consequuntur eos cupiditate minus dolorum nesciunt mollitia eum earum dolor, aperiam fugit ipsum, itaque optio quibusdam? Temporibus doloremque in soluta iusto ratione nulla?</p>
+        </Fragment>
+        </div>
+    );
+};
+
+export default About;
