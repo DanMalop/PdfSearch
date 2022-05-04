@@ -1,10 +1,13 @@
 from flask import Blueprint, request
 from os import getcwd
 from responses.response_json import response_json
+import platform
+
+opSystem = platform.system()
 
 routes_files = Blueprint("routes_files", __name__)
 
-PATH_FILE = f"{getcwd()}/files/"
+PATH_FILE = f"{getcwd()}/files/" if opSystem != 'Windows' else f"{getcwd()}\\files\\"
 
 @routes_files.post("/upload")   # Ruta para subir los archivos
 def upload_file():

@@ -16,7 +16,7 @@ def search(folder: str, keyword: str, scope: int, ignoreSpaces: bool) -> list:
                 num_pages = pdfReader.numPages
                 pdfInfo = pdfReader.getDocumentInfo()
                 
-                name = pdfInfo.title if pdfReader.getDocumentInfo().title != (None | "UNTITLED") else fullName[0]
+                name = pdfInfo.title if (pdfReader.getDocumentInfo().title != None or pdfReader.getDocumentInfo().title != "UNTITELED") else fullName[0]
                 inform["title"] = name
                 inform["author"] = pdfInfo.author
                 inform["content"] = ""

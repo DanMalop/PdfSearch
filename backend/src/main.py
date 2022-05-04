@@ -6,6 +6,9 @@ from pdfSearch import search
 from routes.files import routes_files
 #from werkzeug.utils import secure_filename
 import os
+import platform
+
+opSystem = platform.system()
 
 port = 5000
 
@@ -22,8 +25,8 @@ def generateInform():
     print(f"la peticion => {clientRequest}")
     keyword = clientRequest['keyword']
     scope = int(clientRequest['scope'])
-    #folder = f"{os.getcwd()}/files"
-    folder = f"{os.getcwd()}/../bacteriaFiles/LDPE"
+    #folder = f"{os.getcwd()}/../bacteriaFiles/LDPE" if opSystem != 'Windows' else f"{os.getcwd()}\..\\bacteriaFiles\\LDPE"
+    folder = f"{os.getcwd()}\\files" if opSystem != 'Windows' else f"{os.getcwd()}\\files"
     ignoreSpaces = clientRequest['ignoreSpaces']
         
     response = jsonify(search(folder, keyword, scope, ignoreSpaces))
