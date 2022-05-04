@@ -20,7 +20,7 @@ function Pdfsearch() {
     const handleInputChange = (event) => {
         setFormData({
             ...formData, // Copia los datos del estado
-            [event.target.name]: event.target.name !== "ignoreSpaces"? event.target.value: event.target.checked
+            [event.target.name]: event.target.value
             })            
     }
 
@@ -56,12 +56,6 @@ function Pdfsearch() {
                             placeholder="Scope"
                             autoFocus
                             name="scope"/>
-                        
-                        <div className="form-check ignore-spaces">
-                            <input type="checkbox" name="ignoreSpaces" 
-                            className="form-check-input" onChange={handleInputChange}/>
-                            <label htmlFor="ignoreSpaces" className="">Ignore spaces</label>
-                        </div>
                         <button className="btn btn-primary btn-appform">Search</button>
                     </div>
                 </form>

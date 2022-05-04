@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from os import getcwd
-from responses.response_json import response_json
+from utils.response_json import response_json
 import platform
 
 opSystem = platform.system()

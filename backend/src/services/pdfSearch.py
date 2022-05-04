@@ -1,7 +1,9 @@
 import PyPDF2 as pdf
 import os
+import re
+import utils.tools as tools
 
-def search(folder: str, keyword: str, scope: int, ignoreSpaces: bool) -> list:
+def search(folder: str, keyword: str, scope: int) -> list:
     
     keyword = keyword.lower()
     informList = []
@@ -26,24 +28,30 @@ def search(folder: str, keyword: str, scope: int, ignoreSpaces: bool) -> list:
                     pageObj = pdfReader.getPage(page)
                     text = pageObj.extractText()
                     text = text.lower().replace("\n", "").replace("¶", "")
-                    text = text.replace(" ", "") if ignoreSpaces else text
+                    #text = text.replace(" ", "") if ignoreSpaces else text
+
+                    reExpression = tools.RegexIgnoreSpaces(keyword)
+                    quotesMatchObj = re.finditer(reExpression, text)
+                    totalIndexQuotesList = [quote.span() for quote in quotesMatchObj]
                     
-                    index = text.find(keyword)
-                    #print(f"indice: {index} y keyword: {keyword}")
-                    fragmets = ""
-                    while index >= 0:                        
-                        fragment = f"<li>{text[index - scope//2 : index + scope//2]}</li>"
-                        text = text[index + scope : :]
-                        index = text.find(keyword)
-                        fragmets += fragment if len(fragment) > scope//2 else ""
-                        
-                    if fragmets != "":
+                    fragments = ""
+                    if totalIndexQuotesList != []:
+                        indexQuotesList = tools.deleteNearQuotes(totalIndexQuotesList, scope)
+
+                        for indexQuote in indexQuotesList:
+                            fragment = f"<li>{text[indexQuote[0] - scope//2 : indexQuote[1] + scope//2]}</li>"
+                            fragments += fragment if len(fragment) > scope//2 else ""
+                    
+                    if fragments != "":
                         inform["content"] += f"<h5>Page: {page + 1}</h5>" 
                         inform["content"] += "<ul>" 
-                        inform["content"] += fragmets
+                        inform["content"] += fragments
                                             
                     inform["content"] += "</ul>" if inform["content"] != "" else ""
                     
         informList.append(inform)
 
     return informList
+
+
+#search("C:\\Users\\dd_18\\Documents\\ProyectosW\\web\\PdfSearch-web-app\\backend\\src\\files", "metodología", 400)
