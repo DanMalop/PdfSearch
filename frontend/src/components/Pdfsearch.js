@@ -12,7 +12,6 @@ function Pdfsearch() {
     const [formData, setFormData] = useState({
         keyword: '',
         scope: '',
-        ignoreSpaces: false
     })
     const [inform, setInform] = useState("");
 
