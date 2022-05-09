@@ -1,6 +1,6 @@
 import string
 
-def RegexIgnoreSpaces(keyword: string) -> string:
+def regexIgnoreSpaces(keyword: string) -> string:
     regexExpression = "".join([leter + " ?" for leter in keyword])
     return regexExpression
     

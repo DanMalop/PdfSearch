@@ -1,8 +1,8 @@
 #!/usr/bin/env python3  
-
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-from services.pdfSearch import search
+from services.pdfSearch import PdfSearch
+from models.library import Library
 from routes.files import routes_files
 import os
 import platform
@@ -25,8 +25,9 @@ def generateInform():
     scope = int(clientRequest['scope'])
     #folder = f"{os.getcwd()}/../bacteriaFiles/LDPE" if opSystem != 'Windows' else f"{os.getcwd()}\..\\bacteriaFiles\\LDPE"
     folder = f"{os.getcwd()}/files" if opSystem != 'Windows' else f"{os.getcwd()}\\files"
-        
-    response = jsonify(search(folder, keyword, scope))
+    library = Library(folder)
+    pdfsearch = PdfSearch(keyword, scope, library)
+    response = jsonify(pdfsearch.getInformList())
     response.headers.add('Access-Control-Allow-Origin', '*') # se inclulle en el header para las politicas CORS
     return response
 

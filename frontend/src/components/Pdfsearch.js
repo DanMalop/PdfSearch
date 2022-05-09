@@ -25,7 +25,7 @@ function Pdfsearch() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData.keyword, formData.scope, formData.ignoreSpaces);
+        console.log(formData.keyword, formData.scope);
         const res = await fetch(`${API}/generate_inform`, {
             method: "POST",
             body: JSON.stringify(formData),

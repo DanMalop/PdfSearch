@@ -1,57 +1,45 @@
-import PyPDF2 as pdf
-import os
+from models.library import Library
+from models.book import Book
+from utils.tools import regexIgnoreSpaces, deleteNearQuotes
 import re
-import utils.tools as tools
 
-def search(folder: str, keyword: str, scope: int) -> list:
-    
-    keyword = keyword.lower()
-    informList = []
-    listfiles = os.listdir(folder)
+class PdfSearch():
+    def __init__(self,keyword: str, scope: int, library: Library):
+        self.keyword = keyword.lower()
+        self.scope = scope
+        self.informList = []
+        self.library = library
+            
+    def getInformList(self) -> list:
+        for book in self.library.books:
+            inform = self.getInform(book)
+            self.informList.append(inform)
+        return self.informList
 
-    for filename in listfiles:
-        fullName = os.path.splitext(filename)
+    def getInform(self,book: Book) -> dict:
         inform = {}
-        if fullName[1] == ".pdf":    
-            with open(os.path.join(folder, filename), 'rb') as f:
-                pdfReader = pdf.PdfFileReader(f)
-                num_pages = pdfReader.numPages
-                pdfInfo = pdfReader.getDocumentInfo()
-                
-                name = pdfInfo.title if (pdfReader.getDocumentInfo().title != None or pdfReader.getDocumentInfo().title != "UNTITELED") else fullName[0]
-                inform["title"] = name
-                inform["author"] = pdfInfo.author
-                inform["content"] = ""
-                        
+        inform["title"] = book.title
+        inform["author"] = book.author
+        inform["content"] = ""
+        for page, pageCont in enumerate(book.content):
+            text = pageCont.lower().replace("\n", "").replace("¶", "")
+            reExpression = regexIgnoreSpaces(self.keyword)
+            quotesMatchObj = re.finditer(reExpression, text)
+            totalIndexQuotesList = [quote.span() for quote in quotesMatchObj]
 
-                for page in range(0, num_pages):
-                    pageObj = pdfReader.getPage(page)
-                    text = pageObj.extractText()
-                    text = text.lower().replace("\n", "").replace("¶", "")
-                    #text = text.replace(" ", "") if ignoreSpaces else text
+            fragments = ""
+            if totalIndexQuotesList != []:
+                indexQuotesList = deleteNearQuotes(totalIndexQuotesList, self.scope)
 
-                    reExpression = tools.RegexIgnoreSpaces(keyword)
-                    quotesMatchObj = re.finditer(reExpression, text)
-                    totalIndexQuotesList = [quote.span() for quote in quotesMatchObj]
-                    
-                    fragments = ""
-                    if totalIndexQuotesList != []:
-                        indexQuotesList = tools.deleteNearQuotes(totalIndexQuotesList, scope)
+                for indexQuote in indexQuotesList:
+                    fragment = f"<li>{text[indexQuote[0] - self.scope//2 : indexQuote[1] + self.scope//2]}</li>"
+                    fragments += fragment if len(fragment) > self.scope//2 else ""
 
-                        for indexQuote in indexQuotesList:
-                            fragment = f"<li>{text[indexQuote[0] - scope//2 : indexQuote[1] + scope//2]}</li>"
-                            fragments += fragment if len(fragment) > scope//2 else ""
-                    
-                    if fragments != "":
-                        inform["content"] += f"<h5>Page: {page + 1}</h5>" 
-                        inform["content"] += "<ul>" 
-                        inform["content"] += fragments
+            if fragments != "":
+                inform["content"] += f"<h5>Page: {page + 1}</h5>" 
+                inform["content"] += "<ul>" 
+                inform["content"] += fragments
                                             
-                    inform["content"] += "</ul>" if inform["content"] != "" else ""
-                    
-        informList.append(inform)
+            inform["content"] += "</ul>" if inform["content"] != "" else "" 
 
-    return informList
-
-
-#search("C:\\Users\\dd_18\\Documents\\ProyectosW\\web\\PdfSearch-web-app\\backend\\src\\files", "metodología", 400)
+        return inform
