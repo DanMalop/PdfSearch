@@ -1,5 +1,5 @@
 from models.library import Library
-from models.book import Book
+from models.text import TextFile
 from utils.tools import regexIgnoreSpaces, deleteNearQuotes
 import re
 
@@ -11,17 +11,17 @@ class PdfSearch():
         self.library = library
             
     def getInformList(self) -> list:
-        for book in self.library.books:
-            inform = self.getInform(book)
+        for text in self.library.books:
+            inform = self.getInform(text)
             self.informList.append(inform)
         return self.informList
 
-    def getInform(self,book: Book) -> dict:
+    def getInform(self, text: TextFile) -> dict:
         inform = {}
-        inform["title"] = book.title
-        inform["author"] = book.author
+        inform["title"] = text.title
+        inform["author"] = text.author
         inform["content"] = ""
-        for page, pageCont in enumerate(book.content):
+        for page, pageCont in enumerate(text.content):
             text = pageCont.lower().replace("\n", "").replace("¶", "")
             reExpression = regexIgnoreSpaces(self.keyword)
             quotesMatchObj = re.finditer(reExpression, text)
